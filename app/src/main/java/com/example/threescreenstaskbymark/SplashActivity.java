@@ -1,5 +1,6 @@
 package com.example.threescreenstaskbymark; // Ваш пакет
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,13 +15,28 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // 1. Находим ImageView по ID, который вы дали картинке в разметке
         ImageView sclogo = findViewById(R.id.sclogo);
 
-        // 2. Загружаем созданный файл анимации splash_screen.xml
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_screen);
 
-        // 3. Запускаем анимацию на логотипе
         sclogo.startAnimation(animation);
+        Thread splashThread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+
+                    startActivity(intent);
+
+                    finish();
+                }
+            }
+        };
+        splashThread.start();
     }
 }
