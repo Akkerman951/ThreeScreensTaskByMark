@@ -9,9 +9,6 @@
     tools:context=".LoginActivity">
 
     <!-- Logo on the left side -->
-
-    <!-- Title -->
-
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="119dp"
@@ -23,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"

@@ -18,25 +18,34 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String registeredUser = getIntent().getStringExtra("username");
+        String registeredPass = getIntent().getStringExtra("password");
 
         binding.btnLogin.setOnClickListener(v -> {
-
-            String username = binding.etEmail.getText().toString().trim();
+            String email = binding.etEmail.getText().toString().trim();
             String password = binding.etPassword.getText().toString().trim();
 
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Error: the fields cannot be empty!", Toast.LENGTH_SHORT).show();
+            // Проверка на пустые поля
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Ошибка: пустое поле!", Toast.LENGTH_SHORT).show();
             }
-            else if (username.equals("Akkerman") && password.equals("12345678")) {
-                Toast.makeText(this, "Success! Login successful", Toast.LENGTH_SHORT).show();
+            // Проверка: совпадает ли введенное с зарегистрированным аккаунтом
+            else if (registeredUser != null && email.equals(registeredUser) && password.equals(registeredPass)) {
+                Toast.makeText(this, "Успех! Вход выполнен.", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
+            // Ошибка входа
             else {
-                Toast.makeText(this, "Error: incorrect username or password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Неправильный логин или пароль", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        binding.tvRegisterLink.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 }
